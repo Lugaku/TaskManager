@@ -1,6 +1,5 @@
 // src/components/modal/ModalProvider.jsx
 import { createContext, useState } from "react";
-import ModalPortal from "./ModalPortal";
 import ModalBase from "./ModalBase";
 
 export const ModalContext = createContext();
@@ -21,11 +20,9 @@ export function ModalProvider({ children }) {
       {children}
 
       {modal && (
-        <ModalPortal>
           <ModalBase onClose={closeModal}>
             {modal}
           </ModalBase>
-        </ModalPortal>
       )}
     </ModalContext.Provider>
   );

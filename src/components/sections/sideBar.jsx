@@ -2,11 +2,11 @@ import { useProjects } from "../../context/useProjects";
 import { MdChecklist } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
 import SimpleButton from "../buttons/SimpleButton";
-import GlobalGroupOptions from "../modals/GlobalGroupOptions";
+import GlobalGroupOptions from "../popovers/popoverButton/GlobalGroupOptions";
 import { ModalContext } from "../modal/ModalProvider";
 import { useContext, useState } from "react";
 import UniversalModal from "../modal/UniversalModal";
-import ProjectOption from "../modals/ProjectOptions";
+import ProjectOption from "../popovers/popoverButton/ProjectOptions";
 
 export default function SideBar() {
   const { projectGroups, selectedProjectId, dispatch } = useProjects();

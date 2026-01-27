@@ -1,32 +1,15 @@
-import BoardOptionsMenu from "../modals/BoardOptionsMenu";
-import { useProjects } from "../../context/useProjects";
-import BoardPriorityModal from "../modals/BoardPrioritySelector";
+import TaskOptionsMenu from "../popovers/popoverButton/ListOptionsMenu";
+import TaskPrioritySelector from "../popovers/popoverButton/ListPrioritySelector";
 
+export default function TaskBoardOptionsMenu({ projectId, task }) {
 
-export default function TaskBoardOptionsMenu({projectId, task}){
-    const { dispatch } = useProjects();
+  return (
+    <div className="absolute top-1 right-1 bg-[#1c1f22] justify-center items-center border border-white/10 rounded-sm p-1 flex flex-row gap-1">
+      <div className="w-24">
+        <TaskPrioritySelector task={task} projectId={projectId} />
+      </div>
 
-    function handleDelete(taskId) {
-    dispatch({
-      type: "DELETE_TASK",
-      payload: { projectId, taskId },
-    });
-  }
-
-  // колбэк для каких-то других действий
-  function handleInfo(taskId) {
-    console.log("Info for task", taskId);
-  }
-
-    return(
-        <div className="absolute top-1 right-1 bg-[#1c1f22] justify-center items-center border border-white/10 rounded-sm p-1 flex flex-row gap-1">
-            <BoardPriorityModal task={task} projectId={projectId}/>
-
-            <BoardOptionsMenu
-                task={task}
-                onDelete={handleDelete}
-                onInfo={handleInfo}
-            />
-        </div>
-    )
+      <TaskOptionsMenu task={task} projectId={projectId} />
+    </div>
+  );
 }

@@ -44,7 +44,8 @@ function projectsReducer(state, action) {
                     ...p.tasks, 
                     { 
                       id: Date.now(), 
-                      title: action.payload.title, 
+                      title: action.payload.title,
+                      description: action.payload.description, 
                       status: action.payload.status, 
                       priority: action.payload.priority || "Low" 
                     }

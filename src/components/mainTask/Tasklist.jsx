@@ -34,6 +34,7 @@ export default function TaskList({ project }) {
             payload: {
               projectId: project.id,
               title: data.title,
+              description: data.description,
               status: statusKey,
               priority: "Low",
             },
@@ -42,7 +43,7 @@ export default function TaskList({ project }) {
       />
     );
   }
-
+  
   return (
     <main className="flex flex-col gap-6">
       {/* Верхний блок */}
