@@ -1,23 +1,33 @@
-// src/components/popovers/popoverContent/OptionsPopoverContent.jsx
 import { MdDelete } from "react-icons/md";
 import { FaInfoCircle } from "react-icons/fa";
 
 export default function OptionsPopoverContent({ task, onClose, onDelete }) {
   return (
-    <div className="w-40 bg-[#28292a] border border-white/10 rounded-lg p-2 flex flex-col gap-1 shadow-xl z-[999]">
-      <button
-        onClick={() => { onDelete(task.id); onClose(); }}
-        className="flex items-center gap-2 px-2 py-1 rounded text-sm hover:bg-white/10 text-white/70"
-      >
-        <MdDelete className="text-white/50 text-lg" /> Delete
-      </button>
+    <div className="w-52 bg-[#1b1c1d] border border-white/10 rounded-lg flex flex-col shadow-xl z-[999]">
+      
+      <section className="flex flex-col gap-1 p-4">
+        <p className="text-white/40 text-xs pb-2">Task Options</p>
+        <div className="flex flex-col gap-1">
+          <button
+            onClick={() => { onDelete(task.id); onClose(); }}
+            className="flex items-center gap-4 rounded text-sm hover:bg-white/10 transition text-white/90 p-1"
+          >
+            <MdDelete className="text-white/50 text-lg" /> Delete
+          </button>
 
-      <button
-        onClick={() => { onClose(); }}
-        className="flex items-center gap-2 px-2 py-1 rounded text-sm hover:bg-white/10 text-white/70"
-      >
-        <FaInfoCircle className="text-white/50" /> Info
-      </button>
+          <button
+            onClick={() => { onClose(); }}
+            className="flex items-center gap-4 rounded text-sm hover:bg-white/10 transition text-white/90 p-1"
+          >
+            <FaInfoCircle className="text-white/50 text-lg" /> Info
+          </button>
+        </div>
+      </section>
+
+      <hr className="border-white/10" />
+
+      <section className="bg-[#171819] h-5"></section>
+
     </div>
   );
 }

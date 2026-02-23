@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useProjects } from "../../context/useProjects";
+import { useRef } from "react";
+import { useProjects } from "../../hooks/useProjects";
 import TaskList from "../mainTask/taskList";
 import { FaList } from "react-icons/fa6";
 import { MdDashboard, MdChecklist } from "react-icons/md";
@@ -9,6 +10,7 @@ export default function MainSection() {
   const [taskAddModalOpen, setTaskAddModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState("list");
   const { dispatch } = useProjects();
+  const tasksScrollRef = useRef(null);
 
   const { projectGroups, selectedProjectId } = useProjects();
 
@@ -56,7 +58,7 @@ export default function MainSection() {
               : "hover:bg-white/10 text-white/50"
           }`}
         >
-          <FaList className="text-white/90 p-[2px] bg-white/30 text-sm" />
+          <FaList className="text-white/90 p-[2px] rounded-xs bg-white/30 text-sm" />
           <span>List</span>
           {viewMode === "list" && (
             <div className="absolute left-0 right-0 bottom-0 h-[2px] bg-white/80" />
@@ -79,10 +81,13 @@ export default function MainSection() {
         </div>
       </div>
 
-      <hr className="border-white/10 w-full pb-4" />
+      <hr className="border-white/10 w-full pb-2" />
 
       {/* Содержимое */}
-      <div className="overflow-y-scroll max-h-[80vh]">
+      <div
+        ref={tasksScrollRef}
+        className="overflow-y-scroll tasksContainer max-h-[80vh]"
+      >
         {viewMode === "list" && (
           <TaskList
             project={project}
@@ -92,7 +97,7 @@ export default function MainSection() {
         )}
 
         {viewMode === "board" && (
-          <div className="text-white/50 px-4">
+          <div className="text-white/50 tasksContainer  px-4">
             <TaskBoard
               tasks={project.tasks}
               project={project}

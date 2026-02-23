@@ -25,7 +25,7 @@ export default function TaskBoard({ tasks, onStatusChange, project }) {
   return (
     <DragDropContext onDragEnd={handleDrag}>
       <div className="w-full h-full overflow-x-auto scroll-container transition">
-        <div className="flex flex-row items-start gap-4 h-full flex-nowrap">
+        <div className="flex flex-row items-start gap-2 h-full flex-nowrap">
           {groups.map(group => (
             <Droppable droppableId={group.key} key={group.key}>
               {(provided) => (
@@ -34,7 +34,7 @@ export default function TaskBoard({ tasks, onStatusChange, project }) {
                   group={group}
                   tasks={columns[group.key]}
                   provided={provided}
-                  className="min-w-[280px] flex-shrink-0" // <--- ключ: колонки не сжимаются
+                  className="min-w-[200px] flex-shrink-0"
                 />
               )}
             </Droppable>

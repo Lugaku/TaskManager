@@ -1,10 +1,7 @@
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
 import { FiBell } from "react-icons/fi";
 import { MdOutlineAddChart } from "react-icons/md";
 
 export default function Header({ className = "" }) {
-  const { theme } = useContext(AppContext);
 
   return (
     <header

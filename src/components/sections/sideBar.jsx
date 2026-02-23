@@ -1,8 +1,8 @@
-import { useProjects } from "../../context/useProjects";
+import { useProjects } from "../../hooks/useProjects";
 import { MdChecklist } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
 import SimpleButton from "../buttons/SimpleButton";
-import GlobalGroupOptions from "../popovers/popoverButton/GlobalGroupOptions";
+import GlobalGroupOptions from "../popovers/popoverButton/GroupOptions";
 import { ModalContext } from "../modal/ModalProvider";
 import { useContext, useState } from "react";
 import UniversalModal from "../modal/UniversalModal";

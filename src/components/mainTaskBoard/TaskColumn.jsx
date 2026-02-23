@@ -3,18 +3,31 @@ import { Draggable } from "@hello-pangea/dnd";
 import TaskCreator from "./TaskCreator";
 import { IoAddOutline } from "react-icons/io5";
 import TaskBoardOptionsMenu from "./TaskBoardOptionsMenu";
+import { useContext } from "react";
+import { ModalContext } from "../modal/ModalProvider";
+import TaskModal from "../modal/TaskModal/TaskModal";
 
 export default function TaskColumn({ group, tasks, provided, project}) {
   const [addMode, setAddMode] = useState(false);
   const [hoveredTaskId, setHoveredTaskId] = useState(null);
-  console.log(group)
-   
+  const { openModal } = useContext(ModalContext);
+
+  function openTaskModal(taskId) {
+      openModal(
+        <TaskModal
+          projectId={project.id}
+          taskId={taskId}
+          group={group}
+        />
+      );
+    }
 
   return (
     <div
+    
       ref={provided.innerRef}
       {...provided.droppableProps}
-      className={`${group.bgColor} border border-white/10 rounded-md p-1 flex flex-col gap-2 max-w-1/4 w-1/4 flex-shrink-0 max-h-[calc(100vh-10rem)]`}
+      className={`bg-[#232525]/20 border border-white/10 rounded-md p-1 flex flex-col gap-2 max-w-1/4 w-1/4 flex-shrink-0 max-h-[calc(100vh-10rem)] `}
     >
       {/* HEADER */}
       <div className="flex flex-row justify-between items-center">
@@ -40,7 +53,8 @@ export default function TaskColumn({ group, tasks, provided, project}) {
             <Draggable key={task.id} draggableId={String(task.id)} index={index}>
               {(provided, snapshot) => (
                <div
-                ref={provided.innerRef}
+               onClick={() => openTaskModal(task.id)}
+                ref={provided.innerRef}h
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 onMouseEnter={() => setHoveredTaskId(task.id)}
@@ -53,27 +67,38 @@ export default function TaskColumn({ group, tasks, provided, project}) {
                 }}
                 className={`
                   transition
-                  ${group.blockColor}
+                  bg-[#1a1b1b]
                   border 
-                  h-25
+                  min-h-25 max-h-30
                   rounded-lg
                   p-3
                   text-white/90 text-base
                   ${snapshot.isDragging ? "shadow-xl scale-105" : "shadow-md scale-100"}
-                  ${hoveredTaskId === task.id ? "border-white/30" : "border-white/10"}
-                  transition-transform duration-200
+                  ${hoveredTaskId === task.id
+                    ? "border-white/30" : "border-white/10"
+                  }
+                  transition-all duration-200
                 `}
               >
                 <div className="flex flex-col gap-2">
-                  <div className="flex flex-row justify-between items-center">
-                    {task.title}
+                  <div className="flex flex-row justify-between items-center w-full">
+                    <div className="w-4/5 overflow-hidden">
+                      <p
+                        className="text-white/90 text-base break-words"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 1,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {task.title}
+                      </p>
+                    </div>
 
                     {hoveredTaskId === task.id && <TaskBoardOptionsMenu projectId={project.id} task={task} />}
                   </div>
 
-                  {task.comment && (
-                    <div className="text-white/30 text-xs">{task.comment}</div>
-                  )}
                 </div>
               </div>
               )}

@@ -5,12 +5,26 @@ export const PopoverContext = createContext();
 export function PopoverProvider({ children }) {
   const [popover, setPopover] = useState(null);
   const ref = useRef();
+  const scrollContainerRef = useRef(null);
 
   const openPopover = (content, options = {}) => {
     setPopover({ content, options });
+
+    // Если передан scrollContainer — блокируем его
+    if (options.scrollContainer) {
+      scrollContainerRef.current = options.scrollContainer;
+      scrollContainerRef.current.style.overflow = "hidden";
+    }
   };
 
-  const closePopover = () => setPopover(null);
+  const closePopover = () => {
+    // Разблокируем скролл
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.overflow = "";
+      scrollContainerRef.current = null;
+    }
+    setPopover(null);
+  };
 
   // click outside для закрытия поповера
   useEffect(() => {
@@ -28,7 +42,7 @@ export function PopoverProvider({ children }) {
       {popover && (
         <div
           ref={ref}
-          className="absolute top-0 left-0 w-full h-full flex items-start justify-start pointer-events-none"
+          className="absolute top-1 left-0 w-full h-full flex items-start justify-start pointer-events-none z-50"
         >
           <div
             className="pointer-events-auto text-white rounded shadow-lg"

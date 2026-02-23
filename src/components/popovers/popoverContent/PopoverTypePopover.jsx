@@ -1,21 +1,21 @@
 import { useContext } from "react";
 import { ProjectsContext } from "../../../context/ProjectsContext";
-import { TASK_PRIORITIES } from "../../../constants/taskPriorities";
+import { TASK_TYPES } from "../../../constants/taskTypes";
 
-export default function PopoverPriorityContent({
+export default function PopoverTypeContent({
   task,
   projectId,
   closePopover,
 }) {
   const { dispatch } = useContext(ProjectsContext);
 
-  function setPriority(priority) {
+  function setType(type) {
     dispatch({
-      type: "UPDATE_TASK_PRIORITY",
+      type: "UPDATE_TASK_TYPE",
       payload: {
         projectId,
         taskId: task.id,
-        priority,
+        type,
       },
     });
     closePopover();
@@ -24,12 +24,12 @@ export default function PopoverPriorityContent({
   return (
     <div className="w-52 bg-[#1b1c1d] border border-white/10 rounded-lg flex flex-col shadow-xl">
       <section className="flex flex-col gap-1 p-4">
-        <p className="text-white/40 text-xs pb-2">Task Priority</p>
+        <p className="text-white/40 text-xs pb-2">Task Types</p>
 
-        {TASK_PRIORITIES.map((p) => (
+        {TASK_TYPES.map((p) => (
           <button
             key={p.key}
-            onClick={() => setPriority(p.key)}
+            onClick={() => setType(p.key)}
             className="flex items-center gap-4 rounded text-sm hover:bg-white/10 transition text-white/90 p-1"
           >
             {p.icon}

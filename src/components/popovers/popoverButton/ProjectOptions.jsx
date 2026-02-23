@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { MdExpandMore } from "react-icons/md";
+import { CgOptions } from "react-icons/cg";
 
-import { useProjects } from "../../../context/useProjects";
+import { useProjects } from "../../../hooks/useProjects";
 import { useContext } from "react";
 import { PopoverContext } from "../../../context/PopoverProvider";
 
@@ -29,14 +30,14 @@ export default function ProjectOption({ groupId, projectId }) {
             }}
           />,
           {
-            top: r.bottom + 4,
-            left: r.right - 150,
+            top: r.bottom + 2,
+            left: r.left,
           }
         );
       }}
       className="hover:bg-white/10 p-0.5 rounded-sm"
     >
-      <MdExpandMore size={16} />
+      <CgOptions size={16} />
     </button>
   );
 }

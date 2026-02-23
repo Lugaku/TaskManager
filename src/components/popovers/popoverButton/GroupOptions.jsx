@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
 import { IoIosMore } from "react-icons/io";
 
-import { useProjects } from "../../../context/useProjects";
+import { useProjects } from "../../../hooks/useProjects";
 import { PopoverContext } from "../../../context/PopoverProvider";
 
 import OptionsPopover from "../popoverContent/OptionsPopover";
@@ -28,8 +28,8 @@ export default function GlobalGroupOptions({ groupId }) {
             }}
           />,
           {
-            top: r.bottom + 4,
-            left: r.right - 150,
+            top: r.bottom + 2,
+            left: r.left,
           }
         );
       }}

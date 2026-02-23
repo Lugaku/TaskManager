@@ -27,3 +27,14 @@ html{
 .scroll-container::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
+
+/* глобальный reset для всех react-icons */
+svg {
+  pointer-events: none; /* они не будут реагировать на клики/hover */
+  user-select: none; /* нельзя выделять текст */
+  transition: none !important; /* убираем дерганья при hover */
+}
+
+.rdp-root {
+  --rdp-day_button-border-radius: ;
+}

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppProvider } from "./context/AppContext";
 import { ProjectsProvider } from "./context/ProjectsContext";
 import { ModalProvider } from "./components/modal/ModalProvider";
 import { PopoverProvider } from "./context/PopoverProvider";
@@ -12,7 +11,6 @@ import NavSideBar from "../src/components/headers/NavSideBar";
 
 export default function App() {
   return (
-    <AppProvider>
       <ProjectsProvider>
         <PopoverProvider>
           <ModalProvider>
@@ -35,6 +33,5 @@ export default function App() {
           </ModalProvider>
         </PopoverProvider>
       </ProjectsProvider>
-    </AppProvider>
   );
 }

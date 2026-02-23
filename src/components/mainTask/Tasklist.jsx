@@ -4,7 +4,7 @@ import TaskGroup from "./TaskGroup";
 import { TASK_STATUSES } from "../../constants/taskStatuses";
 import { ModalContext } from "../modal/ModalProvider";
 import UniversalModal from "../modal/UniversalModal";
-import { useProjects } from "../../context/useProjects";
+import { useProjects } from "../../hooks/useProjects";
 
 const groups = TASK_STATUSES;
 
@@ -36,7 +36,7 @@ export default function TaskList({ project }) {
               title: data.title,
               description: data.description,
               status: statusKey,
-              priority: "Low",
+              priority: "Empty",
             },
           });
         }}
@@ -47,14 +47,22 @@ export default function TaskList({ project }) {
   return (
     <main className="flex flex-col gap-6">
       {/* Верхний блок */}
-      <section className="flex flex-row justify-between items-center px-4">
+      <section className="sticky
+        
+        top-0
+        z-20
+        bg-[#121212]
+        flex justify-between items-end
+        px-4
+        py-1 pb-3
+        border-b border-white/10">
         <p className="text-white/50 text-sm">Add new task</p>
 
         <SimpleButton
           onClick={() => handleAddTask("todo")}
           size="none"
           color="none"
-          className="h-7 px-3 rounded-lg flex items-center justify-center bg-white/80 hover:bg-white text-black/80"
+          className="h-7 px-3 rounded-lg flex items-center justify-center bg-white/80 hover:bg-white text-black/80 transition"
         >
           <div className="text-xs tracking-wide">Add Task</div>
         </SimpleButton>
