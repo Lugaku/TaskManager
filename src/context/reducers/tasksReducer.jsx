@@ -12,7 +12,7 @@ export function tasksReducer(tasks, action) {
           priority: action.payload.priority || "Empty",
           comments: [],
           type: action.payload.type || "Task",
-          dueDate: action.payload.dueDatec || ""
+          dueDate: action.payload.dueDate || ""
         },
       ];
 

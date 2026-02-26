@@ -14,7 +14,6 @@ export default function TaskItem({ task, group, projectId }) {
       <TaskModal
         projectId={projectId}
         taskId={task.id}
-        style={group}
       />
     );
   }, [openModal, projectId, task.id, group]);

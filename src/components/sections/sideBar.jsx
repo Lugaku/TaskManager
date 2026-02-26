@@ -7,9 +7,11 @@ import { ModalContext } from "../modal/ModalProvider";
 import { useContext, useState } from "react";
 import UniversalModal from "../modal/UniversalModal";
 import ProjectOption from "../popovers/popoverButton/ProjectOptions";
+import { GrSort } from "react-icons/gr";
+import { view } from "framer-motion/client";
 
 export default function SideBar() {
-  const { projectGroups, selectedProjectId, dispatch } = useProjects();
+  const { projectGroups, selectedProjectId, dispatch, currentView } = useProjects();
   const { openModal, closeModal } = useContext(ModalContext);
 
   const [hoveredProjects, setHoveredProjects] = useState({});
@@ -54,10 +56,19 @@ export default function SideBar() {
     );
   }
 
+function changeView() {
+  dispatch({
+    type: "SET_VIEW",
+    payload: { view: "mytask" }, // здесь должно быть `view`, как ждёт reducer
+  });
+  setHoveredProjects("")
+}
+
+
   return (
-    <aside className="bg-[#232525]/20 w-88 h-full flex flex-col px-2 py-1 overflow-y-auto border-r border-white/20">
+    <aside className="bg-[#232525]/20 gap-4 w-68 h-full flex flex-col px-2 py-1 overflow-y-auto border-r border-white/20">
       {/* HEADER */}
-      <div className="flex items-center justify-between mb-12 mt-2 px-2">
+      <div className="flex items-center justify-between px-2">
         <div className="text-lg text-white/80 font-medium mt-0.5">Workspace</div>
 
         <SimpleButton
@@ -70,6 +81,13 @@ export default function SideBar() {
           <div className="text-xs tracking-wide">Add Group</div>
         </SimpleButton>
       </div>
+
+      <div className="flex flex-col gap-2 justify-start items-start w-full">
+        <button onClick={() => changeView()} className="w-full rounded-lg text-sm text-white/40 flex flex-row gap-1 items-center hover:bg-white/10 p-1 text-white/60 transition hover:text-white/90">
+        <GrSort/>
+        My Tasks
+        </button>
+      </div>  
 
       {/* GROUPS */}
       <div className="flex-1 flex flex-col gap-1">
@@ -100,39 +118,39 @@ export default function SideBar() {
               <div className="absolute -left-4 w-[1px] bg-white/15 rounded-full h-full" />
               <div className="flex flex-col gap-1 w-full z-10">
                 {group.projects.map((p) => {
-  const isActive = p.id === selectedProjectId;
-  const isHovered = hoveredProjects[p.id] || false;
+                    const isActive = p.id === selectedProjectId;
+                    const isHovered = hoveredProjects[p.id] || false;
 
-  return (
-    <div
-      key={p.id}
-      className={`flex items-center gap-2 pl-1 pr-3 py-1 rounded-md text-left text-sm transition ${
-        isActive ? "bg-white/10 text-white/90" : "hover:bg-white/5 text-white/70"
-      }`}
-      onMouseEnter={() => setHoveredProjects(prev => ({ ...prev, [p.id]: true }))}
-      onMouseLeave={() => setHoveredProjects(prev => ({ ...prev, [p.id]: false }))}
-    >
-      <span
-        className="flex-1 flex gap-2 items-center truncate pl-2 cursor-pointer"
-        onClick={() =>
-          dispatch({
-            type: "SELECT_PROJECT",
-            payload: { projectId: p.id },
-          })
-        }
-      >
-        <MdChecklist className="text-lg" />
-        {p.name}
-      </span>
+                    return (
+                      <div
+                        key={p.id}
+                        className={`flex items-center gap-2 pl-1 pr-3 py-1 rounded-md text-left text-sm transition ${
+                          isActive ? "bg-white/10 text-white/90" : "hover:bg-white/5 text-white/70"
+                        }`}
+                        onMouseEnter={() => setHoveredProjects(prev => ({ ...prev, [p.id]: true }))}
+                        onMouseLeave={() => setHoveredProjects(prev => ({ ...prev, [p.id]: false }))}
+                      >
+                        <span
+                          className="flex-1 flex gap-2 items-center truncate pl-2 cursor-pointer"
+                          onClick={() =>
+                            dispatch({
+                              type: "SELECT_PROJECT",
+                              payload: { projectId: p.id },
+                            })
+                          }
+                        >
+                          <MdChecklist className="text-lg" />
+                          {p.name}
+                        </span>
 
-      {(isActive || isHovered) && (
-        <ProjectOption groupId={group.id} projectId={p.id} />
-      )}
+                        {(isActive || isHovered) && (
+                          <ProjectOption groupId={group.id} projectId={p.id} />
+                        )}
 
-      <span className="text-sm text-white/50 tabular-nums">{p.tasks.length}</span>
-    </div>
-  );
-})}
+                        <span className="text-sm text-white/50 tabular-nums">{p.tasks.length}</span>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

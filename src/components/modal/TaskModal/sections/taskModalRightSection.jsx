@@ -1,4 +1,5 @@
 export default function TaskModalRightSection({task, handleDeleteComment, setCommentText, commentText, handleAddComment}){
+
     return(
         <div className="w-2/5 flex flex-col bg-black/30 border-l border-white/10">
             <div className="p-4 bg-[#0e0e0e] border-b border-white/10">

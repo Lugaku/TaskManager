@@ -10,7 +10,7 @@ import TaskPrioritySelector from "../../../popovers/popoverButton/TaskPrioritySe
 import TaskDueDateSelector from "../../../popovers/popoverButton/TaskDueDateSelector";
 import TaskTypeSelector from "../../../popovers/popoverButton/TaskType";
 
-export default function TaskModalInfoSection({ projectId, task, style }) {
+export default function TaskModalInfoSection({ projectId, task }) {
   // Массив секций
   const sections = [
 
@@ -35,7 +35,6 @@ export default function TaskModalInfoSection({ projectId, task, style }) {
           mode="taskModal"
           projectId={projectId}
           taskId={task.id}
-          style={style}
         />
       ),
     },

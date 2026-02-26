@@ -6,6 +6,7 @@ export const ProjectsContext = createContext();
 const defaultState = {
   projectGroups: [],
   selectedProjectId: null,
+  currentView: "project"
 };
 
 export function ProjectsProvider({ children }) {
@@ -23,6 +24,7 @@ export function ProjectsProvider({ children }) {
       value={{
         projectGroups: state.projectGroups,
         selectedProjectId: state.selectedProjectId,
+        currentView: state.currentView,
         dispatch,
       }}
     >

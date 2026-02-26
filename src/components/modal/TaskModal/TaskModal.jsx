@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import { useProjects } from "../../../hooks/useProjects";
 import { ModalContext } from "../ModalProvider";
 import { PopoverProvider } from "../../../context/PopoverProvider";
@@ -11,9 +11,10 @@ import TaskModalHeroSection from "./sections/taskModalHeroSection";
 import TaskModalRightSection from "./sections/taskModalRightSection";
 import TaskModalDescription from "./sections/taskModalDescription";
 
-export default function TaskModal({ projectId, taskId, style }) {
+export default function TaskModal({ projectId, taskId }) {
   const { projectGroups, dispatch } = useProjects();
   const { closeModal } = useContext(ModalContext);
+  const [commentText, setCommentText] = useState("");
 
   const group = projectGroups.find((g) =>
     g.projects.some((p) => p.id === projectId)
@@ -39,18 +40,20 @@ export default function TaskModal({ projectId, taskId, style }) {
     TASK_PRIORITIES.find((p) => p.key === task.priority) ||
     TASK_PRIORITIES.find((p) => p.key === "Low");
 
-  const handleAddComment = (commentText) => {
-    if (!commentText.trim()) return;
+  const handleAddComment = () => {
+  if (!commentText.trim()) return;
 
-    dispatch({
-      type: "ADD_TASK_COMMENT",
-      payload: {
-        projectId,
-        taskId: task.id,
-        text: commentText.trim(),
-      },
-    });
-  };
+  dispatch({
+    type: "ADD_TASK_COMMENT",
+    payload: {
+      projectId,
+      taskId: task.id,
+      text: commentText.trim(),
+    },
+  });
+
+  setCommentText("");
+};
 
   const handleDeleteComment = (commentId) => {
     dispatch({
@@ -90,7 +93,6 @@ export default function TaskModal({ projectId, taskId, style }) {
             <TaskModalInfoSection
               task={task}
               projectId={projectId}
-              style={style}
             />
 
             <TaskModalDescription 
@@ -105,6 +107,8 @@ export default function TaskModal({ projectId, taskId, style }) {
             task={task}
             handleDeleteComment={handleDeleteComment}
             handleAddComment={handleAddComment}
+            commentText={commentText}
+            setCommentText={setCommentText}
           />
 
         </section>
