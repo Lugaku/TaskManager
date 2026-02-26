@@ -25,7 +25,7 @@ export default function TaskBoard({ tasks, onStatusChange, project }) {
   return (
     <DragDropContext onDragEnd={handleDrag}>
       <div className="w-full h-full overflow-x-auto scroll-container transition">
-        <div className="flex flex-row items-start gap-2 h-full flex-nowrap">
+        <div className="flex flex-row text-white/90 items-start gap-2 h-full flex-nowrap">
           {groups.map(group => (
             <Droppable droppableId={group.key} key={group.key}>
               {(provided) => (

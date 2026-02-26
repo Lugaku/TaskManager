@@ -48,7 +48,7 @@ export default function TaskColumn({ group, tasks, provided, project}) {
       {addMode && (
         <TaskCreator onClose={() => setAddMode(false)} group={group} projectId={project.id}/>
       )}
-        <div className="flex flex-col gap-3 min-h-[10px] overflow-y-auto max-h-[75vh]">
+        <div className="flex flex-col text-white/90 gap-3 min-h-[10px] overflow-y-auto max-h-[75vh]">
           {tasks.map((task, index) => (
             <Draggable key={task.id} draggableId={String(task.id)} index={index}>
               {(provided, snapshot) => (
