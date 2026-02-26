@@ -16,3 +16,9 @@ npm run dev
 
 ## Screenshots
 ![screenshot1](./screenshots/1.png)
+![screenshot2](./screenshots/2.png)
+![screenshot3](./screenshots/3.png)
+![screenshot4](./screenshots/4.png)
+![screenshot5](./screenshots/5.png)
+![screenshot6](./screenshots/6.png)
+![screenshot7](./screenshots/7.png)
